@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: rgb(151, 230, 151);
+            height: 95vh;
+            width: 95vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #canvas {
+            background: rgb(83, 216, 83);
+            display: grid;
+
+            height: 100vmin;
+            width: 100vmin;
+            grid-template-columns: repeat(18, 1fr);
+            grid-template-rows: repeat(18, 1fr);
+        }
+
+        .head {
+            /* background: linear-gradient(rgb(2, 255, 86), rgb(177, 177, 111)); */
+            background: green;
+            /* border: 2px solid rgb(77, 185, 153); */
+
+            padding: 11px;
+
+
+        }
+
+        .food {
+            background: red;
+            /* border-radius: 20px; */
+        }
+
+        .snake {
+            background: linear-gradient(yellow, green);
+            margin: 1px;
+        }
+        .scores{
+            display: flex;
+            /* background-color: red; */
+            height: 90vh;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scores">
+        <h1 >Score: <span id="score"></span></h1>
+        <h1>High Score: <span  id="highScore"></span></h1>
+    </div>
+    <div id="canvas"></div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
