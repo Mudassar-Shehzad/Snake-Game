@@ -6,50 +6,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body {
-            background: rgb(151, 230, 151);
-            height: 95vh;
-            width: 95vw;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+       body {
+    background: rgb(233, 240, 233);
+    height: 95vh;
+    width: 95vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+#canvas {
+
+    background: rgb(34, 34, 34); 
+    display: grid;
+    height: 40vw;
+    width: 100vmin;
+    grid-template-columns: repeat(18, 1fr);
+    grid-template-rows: repeat(18, 1fr);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+   
+}
+
+.scores {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+}
+
+.scores h1 {
+    margin: 10px 0;
+    font-size: 2rem;
+}
+
+.head {
+    background: rgb(255, 69, 0);
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); 
+    padding: 2px;
+}
+
+.food {
+    background: url('apple.png.png') no-repeat center center / contain;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+.food2 {
+    background: url('threeApple.png') no-repeat center center / contain;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    transform: scale(1.8); /* Adjust the scale as needed */
+    z-index: 1; 
+}
+
+.snake {
+    background: linear-gradient(45deg, rgb(50, 205, 50), rgb(0, 128, 0)); 
+    border-radius: 10px;
+}
+
+.foodySnakeBody {
+    background: rgb(123, 199, 199); 
+}
+
+.foodySnakeFace {
+    background: rgb(15, 224, 224);
+}
+#range {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 15px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
         }
 
-        #canvas {
-            background: rgb(83, 216, 83);
-            display: grid;
-
-            height: 100vmin;
-            width: 100vmin;
-            grid-template-columns: repeat(18, 1fr);
-            grid-template-rows: repeat(18, 1fr);
+        #range:hover {
+            opacity: 1;
         }
 
-        .head {
-            /* background: linear-gradient(rgb(2, 255, 86), rgb(177, 177, 111)); */
-            background: green;
-            /* border: 2px solid rgb(77, 185, 153); */
-
-            padding: 11px;
-
-
+        #range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
         }
 
-        .food {
-            background: red;
-            /* border-radius: 20px; */
+        #range::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
         }
 
-        .snake {
-            background: linear-gradient(yellow, green);
-            margin: 1px;
-        }
-        .scores{
-            display: flex;
-            /* background-color: red; */
-            height: 90vh;
-            flex-direction: column;
-        }
     </style>
 </head>
 
@@ -57,6 +120,7 @@
     <div class="scores">
         <h1 >Score: <span id="score"></span></h1>
         <h1>High Score: <span  id="highScore"></span></h1>
+        <input id="range" type="range" min="2" max="20" value="2">
     </div>
     <div id="canvas"></div>
 
