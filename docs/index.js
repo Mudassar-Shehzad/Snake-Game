@@ -6,6 +6,10 @@ const backgroundMusic = new Audio('music/music.mp3')
 const success = new Audio('music/success.mp3')
 
 //Variables
+let moveUp = document.getElementById('moveUp')
+let moveDown = document.getElementById('moveDown')
+let moveLeft = document.getElementById('moveLeft')
+let moveRight = document.getElementById('moveRight')
 let range = document.getElementById('range')
 let levelSelect = document.getElementById('levelSelect')
 let pauseGame = document.getElementById('pauseGame')
@@ -198,15 +202,15 @@ function collisionL3(sarr) {
 }
 
 levelSelect.addEventListener('click', () => {
-   setTimeout(() => {
-     
-    inputDirection = { x: 0, y: 0 }
-    snakeArr = [
-        { x: 11, y: 11 },
-        { x: 11, y: 12 }
-    ]
-    
-   }, 1000);
+    setTimeout(() => {
+
+        inputDirection = { x: 0, y: 0 }
+        snakeArr = [
+            { x: 11, y: 11 },
+            { x: 11, y: 12 }
+        ]
+
+    }, 1000);
     speed = range.value
     if (levelSelect.value === 'level1') {
         document.getElementById('highScore').innerHTML = hiScoreL1;
@@ -482,14 +486,39 @@ function gameEngine() {
 
 
 //Adding eventlistener to the arrow keys
+
+moveUp.addEventListener('click', () => {
+    if (inputDirection.y !== 1) {
+        inputDirection = { x: 0, y: -1 }
+        moveSound.play()
+    };
+})
+moveDown.addEventListener('click', () => {
+    if (inputDirection.y !== -1) {
+        inputDirection = { x: 0, y: 1 };
+        moveSound.play()
+    }
+})
+moveLeft.addEventListener('click', () => {
+    if (inputDirection.x !== 1) {
+        inputDirection = { x: -1, y: 0 };
+        moveSound.play()
+    }
+})
+moveRight.addEventListener('click', () => {
+    if (inputDirection.x !== -1) {
+        inputDirection = { x: 1, y: 0 };
+        moveSound.play()
+    }
+})
 window.addEventListener('keydown', e => {
     switch (e.key) {
         case 'ArrowUp':
             if (inputDirection.y !== 1) {
                 inputDirection = { x: 0, y: -1 }
                 moveSound.play()
-                break;
             };
+            break;
         case 'ArrowDown':
             if (inputDirection.y !== -1) {
                 inputDirection = { x: 0, y: 1 };

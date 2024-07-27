@@ -9,34 +9,52 @@
 </head>
 
 <body>
+
     <div>
+
+        <div class="container">
+
+            <div id="canvas"></div>
+        </div>
+       
+    </div>
+    <div>
+        <div class="arrows">
+                <img id="moveUp" src="up.png" alt="">
+                <img id="moveDown" src="down.png" alt="">
+                <img id="moveLeft" src="left.png" alt="">
+                <img id="moveRight" src="right.png" alt="">
+        </div>
+        <div class="scores">
+            <h2>Score: <span id="score"></span></h2>
+            <h2>High Score: <span id="highScore"></span></h2>
+        </div>
         <div class="scores">
             <div class="buttons">
-    
+
                 <button class="button" id="newGame">New Game</button>
                 <button class="button" id="pauseGame">Pause</button>
                 <button class="button" id="continueGame">Continue</button>
             </div>
         </div>
         <div class="scores">
-            <h1>Snake Speed</h1>
+            <h2>Snake Speed</h2>
             <input id="range" type="range" min="2" max="20" value="5">
         </div>
+
         <div class="scores">
-            <h1>Score: <span id="score"></span></h1>
-            <h1>High Score: <span id="highScore"></span></h1>
+            <label for="levelSelect">Select Level</label>
+            <select id="levelSelect">
+                <option value="level1">Level 1</option>3
+                <option value="level2">Level 2</option>
+                <option value="level3">Level 3</option>
+            </select>
         </div>
-        
+       
     </div>
-    <div id="canvas"></div>
-    <div class="scores">
-        <label for="levelSelect">Choose a level:</label>
-        <select id="levelSelect">
-            <option value="level1">Level 1</option>
-            <option value="level2">Level 2</option>
-            <option value="level3">Level 3</option>
-        </select> 
-    </div>
+    <!-- <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae iusto ea, eum perspiciatis repellat
+        corporis, modi incidunt magnam ipsum suscipit molestiae nobis, omnis commodi doloribus vel quos? Quam, repellat
+        pariatur.</div> -->
 
     <script src="index.js"></script>
 </body>
