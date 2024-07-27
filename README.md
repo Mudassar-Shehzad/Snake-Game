@@ -27,6 +27,9 @@ Collect big food for extra points, which appears after eating 5 regular foods.
 Controls:
 
 Arrow Keys: Move the snake.
+
 Pause Button: Pause the game.
+
 Continue Button: Resume the game.
+
 New Game Button: Start a new game.
