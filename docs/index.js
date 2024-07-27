@@ -434,11 +434,7 @@ function gameEngine() {
             blockElement.style.gridColumnStart = item.x;
             blockElement.classList.add('L1blocks');
             board.appendChild(blockElement);
-            // inputDirection = { x: 0, y: 0 }
-            // snakeArr = [
-            //     { x: 11, y: 11 },
-            //     { x: 11, y: 12 }
-            // ]
+  
 
         });
         // Function defined on the top
