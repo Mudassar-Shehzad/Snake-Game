@@ -325,11 +325,17 @@ function gameEngine() {
         } else if (levelSelect.value === 'level2') {
             scoreL2 += 1;
             document.getElementById('score').innerHTML = scoreL2;
+            if (scoreL2 > hiScoreL2) {
+                document.getElementById('highScore').innerHTML = scoreL2;
+            }
 
         }
         else if (levelSelect.value === 'level3') {
             scoreL3 += 1;
             document.getElementById('score').innerHTML = scoreL3;
+            if (scoreL2 > hiScoreL2) {
+                document.getElementById('highScore').innerHTML = scoreL2;
+            }
 
         }
         document.getElementById('score').innerHTML = levelSelect.value === 'level1' ? scoreL1 : levelSelect.value === 'level2' ? scoreL2 : scoreL3;
