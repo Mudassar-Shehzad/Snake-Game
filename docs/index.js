@@ -1,9 +1,11 @@
+//All contants
 const foodSound = new Audio('music/food.mp3');
 const moveSound = new Audio('music/move.mp3')
 const gameOverSound = new Audio('music/losegame.mp3')
 const backgroundMusic = new Audio('music/music.mp3')
-// const hiss = new Audio('music/hiss3.mp3')
 const success = new Audio('music/success.mp3')
+
+//Variables
 let range = document.getElementById('range')
 let levelSelect = document.getElementById('levelSelect')
 let pauseGame = document.getElementById('pauseGame')
@@ -130,13 +132,14 @@ let L2blocks = [
 ]
 let food = { x: 4, y: 5 }
 let bigFood = { x: null, y: null }
-let score = 0;
 let eatenFood = 0;
-let hiScore = localStorage.getItem('hiscore') || 0;
-if (hiScore) {
-    let highscore = JSON.parse(hiScore)
-    document.getElementById('highScore').innerHTML = highscore
-}
+let scoreL1 = 0;
+let scoreL2 = 0;
+let scoreL3 = 0;
+let hiScoreL1 = localStorage.getItem('hiscoreL1') || 0;
+let hiScoreL2 = localStorage.getItem('hiscoreL2') || 0;
+let hiScoreL3 = localStorage.getItem('hiscoreL3') || 0;
+
 let board = document.getElementById('canvas')
 //game functions
 window.requestAnimationFrame(main)
@@ -148,6 +151,7 @@ function main(currentTime) {
     lastPaintTime = currentTime;
     gameEngine()
 }
+//Checking which level is selected
 function level(lev) {
     if (lev === 'level1') {
         return 'level1';
@@ -160,11 +164,12 @@ function level(lev) {
     return false;
 
 }
-function handleGameOver(){
+//WhenEver Snake collides with walls (only in level 1 or level 2)
+function handleGameOver() {
     gameOver = false;
     speed = 0;
     setTimeout(() => {
-        gameOver=true;
+        gameOver = true;
         speed = 4;
         inputDirection = { x: 0, y: 0 }
         snakeArr = [
@@ -175,31 +180,80 @@ function handleGameOver(){
 
     }, 500)
 }
-function collisionL2(sarr){
+
+//Function Collision in level 2
+function collisionL2(sarr) {
     if (sarr[0].y === 2 || sarr[0].y === 17) {
-     handleGameOver()
+        scoreL2 = 0;
+        handleGameOver()
     }
 
 }
-function collisionL3(sarr){
+//Function Collision in level 3
+function collisionL3(sarr) {
     if (sarr[0].y === 1 || sarr[0].y === 18 || sarr[0].x === 1 || sarr[0].x === 18) {
+        scoreL3 = 0;
         handleGameOver()
     }
 }
+
+levelSelect.addEventListener('click', () => {
+   setTimeout(() => {
+     
+    inputDirection = { x: 0, y: 0 }
+    snakeArr = [
+        { x: 11, y: 11 },
+        { x: 11, y: 12 }
+    ]
+    
+   }, 1000);
+    speed = range.value
+    if (levelSelect.value === 'level1') {
+        document.getElementById('highScore').innerHTML = hiScoreL1;
+    } else if (levelSelect.value === 'level2') {
+        document.getElementById('highScore').innerHTML = hiScoreL2;
+    }
+    else if (levelSelect.value === 'level3') {
+        document.getElementById('highScore').innerHTML = hiScoreL3;
+    }
+})
+
+if (
+    inputDirection.x === 0 && inputDirection.y === 0 &&
+    snakeArr.length === 2 &&
+    snakeArr[0].x === 11 && snakeArr[0].y === 11 &&
+    snakeArr[1].x === 11 && snakeArr[1].y === 12
+) {
+    if (levelSelect.value === 'level1') {
+        document.getElementById('highScore').innerHTML = hiScoreL1;
+    } else if (levelSelect.value === 'level2') {
+        document.getElementById('highScore').innerHTML = hiScoreL2;
+    }
+    else if (levelSelect.value === 'level3') {
+        document.getElementById('highScore').innerHTML = hiScoreL3;
+    }
+
+}
+
+
+
+
+
+//main function
 function gameEngine() {
     backgroundMusic.play()
-
+    //Adding animation on game over
     if (gameOver) {
         board.classList.add('collide')
-    
-
     }
+    //Handling pause and continue the Game
     pauseGame.addEventListener('click', () => {
         speed = 0;
     })
     continueGame.addEventListener('click', () => {
         speed = range.value;
     })
+    //New Game
     newGame.addEventListener('click', () => {
         snakeArr = [
             { x: 11, y: 11 },
@@ -209,7 +263,7 @@ function gameEngine() {
 
     })
 
-    // if (level(levelSelect.value) === 'level2') {
+    //Handling Out AND In 
     if (snakeArr[0].x >= 18) {
         snakeArr[0].x = 1
     }
@@ -224,21 +278,61 @@ function gameEngine() {
         snakeArr[0].y = 17
 
     }
-    if (score > hiScore) {
-        localStorage.setItem('hiscore', score)
-        hiScore = score;
-        document.getElementById('highScore').innerHTML = hiScore
-    }
-    document.getElementById('score').innerHTML = score;
 
+    if (levelSelect.value === 'level1') {
+        if (scoreL1 > hiScoreL1) {
+            localStorage.setItem('hiscoreL1', scoreL1)
+            hiScoreL1 = scoreL1;
+        }
+        document.getElementById('score').innerHTML = scoreL1;
+        // document.getElementById('highScore').innerHTML = scoreL1;
+
+    } else if (levelSelect.value === 'level2') {
+        if (scoreL2 > hiScoreL2) {
+            localStorage.setItem('hiscoreL2', scoreL2)
+            hiScoreL1 = scoreL2;
+        }
+        document.getElementById('score').innerHTML = scoreL2;
+        // document.getElementById('highScore').innerHTML = scoreL2;
+    }
+    else if (levelSelect.value === 'level3') {
+        if (scoreL3 > hiScoreL3) {
+            localStorage.setItem('hiscoreL3', scoreL3)
+            hiScoreL3 = scoreL3;
+        }
+        document.getElementById('score').innerHTML = scoreL3;
+        // document.getElementById('highScore').innerHTML = scoreL3;
+
+
+    }
+
+
+    // Setting speed according to user via range input
     range.addEventListener('change', () => {
         speed = range.value
     })
 
+
     //Whenever the food is eaten, the new food is generated
     if (snakeArr[0].y === food.y && snakeArr[0].x === food.x) {
-        score += 1;
-        document.getElementById('score').innerHTML = score;
+        if (levelSelect.value === 'level1') {
+            scoreL1 += 1;
+            document.getElementById('score').innerHTML = scoreL1;
+            if (scoreL1 > hiScoreL1) {
+                document.getElementById('highScore').innerHTML = scoreL1;
+            }
+
+        } else if (levelSelect.value === 'level2') {
+            scoreL2 += 1;
+            document.getElementById('score').innerHTML = scoreL2;
+
+        }
+        else if (levelSelect.value === 'level3') {
+            scoreL3 += 1;
+            document.getElementById('score').innerHTML = scoreL3;
+
+        }
+        document.getElementById('score').innerHTML = levelSelect.value === 'level1' ? scoreL1 : levelSelect.value === 'level2' ? scoreL2 : scoreL3;
         foodSound.play()
         snakeArr.unshift({ x: snakeArr[0].x + inputDirection.x, y: snakeArr[0].y + inputDirection.y })
         // generating food in random place
@@ -247,19 +341,37 @@ function gameEngine() {
         food = { x: Math.round(a + (b - a) * Math.random()), y: Math.round(a + (b - a) * Math.random()) };
         eatenFood += 1;
     }
-
+    //Cheking if the Big Food is eaten
     if (bigFood.x !== null && snakeArr[0].y === bigFood.y && snakeArr[0].x === bigFood.x) {
-        score += 5;
-        document.getElementById('score').innerHTML = score;
+
+        if (levelSelect.value === 'level1') {
+            scoreL1 += 5;
+
+        } else if (levelSelect.value === 'level2') {
+            scoreL2 += 5;
+
+        }
+        else if (levelSelect.value === 'level3') {
+            scoreL3 += 5;
+
+        }
         success.play()
         snakeArr.unshift({ x: snakeArr[0].x + inputDirection.x, y: snakeArr[0].y + inputDirection.y });
         bigFood = { x: null, y: null };
     }
+    document.getElementById('score').innerHTML = levelSelect.value === 'level1' ? scoreL1 : levelSelect.value === 'level2' ? scoreL2 : scoreL3;
 
+    //Generating New Big Food by checking the eaten food value
     if (eatenFood === 5) {
         eatenFood = 0;
-
-        document.getElementById('score').innerHTML = score;
+        if (levelSelect.value === 'level1') {
+            document.getElementById('score').innerHTML = scoreL1;
+        } else if (levelSelect.value === 'level2') {
+            document.getElementById('score').innerHTML = scoreL2;
+        }
+        else if (levelSelect.value === 'level3') {
+            document.getElementById('score').innerHTML = scoreL3;
+        }
         let a = 2;
         let b = 17;
         bigFood = { x: Math.round(a + (b - a) * Math.random()), y: Math.round(a + (b - a) * Math.random()) };
@@ -267,6 +379,7 @@ function gameEngine() {
             bigFood = { x: null, y: null };
         }, 5000);
     }
+
     //moving the snake
     for (let i = snakeArr.length - 2; i >= 0; i--) {
         snakeArr[i + 1] = { ...snakeArr[i] }
@@ -276,12 +389,13 @@ function gameEngine() {
 
 
 
-    //snake
+    //Displaying Snake
     board.innerHTML = ''
     snakeArr.forEach((item, index) => {
         snakeElement = document.createElement('div')
         snakeElement.style.gridRowStart = item.y;
         snakeElement.style.gridColumnStart = item.x;
+        //Changing the snake color if the snake collides itself
         for (let i = 1; i < snakeArr.length; i++) {
             if (snakeArr[i].x === snakeArr[0].x && snakeArr[i].y === snakeArr[0].y) {
                 // hiss.play()
@@ -300,22 +414,29 @@ function gameEngine() {
         board.appendChild(snakeElement)
 
     })
+    //Changing the board to level 2
 
     if (level(levelSelect.value) === 'level2') {
-
         L1blocks.forEach(item => {
+
             blockElement = document.createElement('div');
             blockElement.style.gridRowStart = item.y;
             blockElement.style.gridColumnStart = item.x;
             blockElement.classList.add('L1blocks');
             board.appendChild(blockElement);
-            speed = range.value;
+            // inputDirection = { x: 0, y: 0 }
+            // snakeArr = [
+            //     { x: 11, y: 11 },
+            //     { x: 11, y: 12 }
+            // ]
+
         });
-    
+        // Function defined on the top
         collisionL2(snakeArr);
- 
+
 
     }
+    //Changing the board to level 3
     if (level(levelSelect.value) === 'level3') {
         L2blocks.forEach(item => {
             blockElement = document.createElement('div');
@@ -323,19 +444,25 @@ function gameEngine() {
             blockElement.style.gridColumnStart = item.x;
             blockElement.classList.add('L2blocks');
             board.appendChild(blockElement);
+            // inputDirection = { x: 0, y: 0 }
+            // snakeArr = [
+            //     { x: 11, y: 11 },
+            //     { x: 11, y: 12 }
+            // ]
         });
-        
+        // Function defined on the top
         collisionL3(snakeArr);
 
-  
+
     }
 
-    //food
+    //Displaying Food
     foodElement = document.createElement('div')
     foodElement.style.gridRowStart = food.y;
     foodElement.style.gridColumnStart = food.x;
     foodElement.classList.add('food')
     board.appendChild(foodElement)
+    //Displaying Big food
     if (bigFood.x !== null) {
         let bigFoodElement = document.createElement('div');
         bigFoodElement.style.gridRowStart = bigFood.y;
@@ -348,8 +475,7 @@ function gameEngine() {
 }
 
 
-// }
-//main 
+//Adding eventlistener to the arrow keys
 window.addEventListener('keydown', e => {
     switch (e.key) {
         case 'ArrowUp':
@@ -383,20 +509,3 @@ window.addEventListener('keydown', e => {
 
 
 
-// function isCollide(sarr) {
-//     // Collision with walls
-//     if (sarr[0].x >= 18 || sarr[0].x <= 0 || sarr[0].y >= 18 || sarr[0].y <= 0) {
-//         return true;
-//     }
-
-//     return false;
-// }
-// function collideItself(sarr) {
-//     // collision with the snake itself
-//     for (let i = 1; i < sarr.length; i++) {
-//         if (sarr[i].x === sarr[0].x && sarr[i].y === sarr[0].y) {
-//             return true;
-//         }
-//     }
-//     return false
-// } 
