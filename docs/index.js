@@ -215,7 +215,7 @@ levelSelect.addEventListener('click', () => {
     if (levelSelect.value === 'level1') {
         document.getElementById('highScore').innerHTML = `HighScore:${hiScoreL1}`;
     } else if (levelSelect.value === 'level2') {
-        document.getElementById('highScore').innerHTML =  `HighScore:${hiScoreL2}`;
+        document.getElementById('highScore').innerHTML = `HighScore:${hiScoreL2}`;
     }
     else if (levelSelect.value === 'level3') {
         document.getElementById('highScore').innerHTML = `HighScore:${hiScoreL3}`;
@@ -229,12 +229,12 @@ if (
     snakeArr[1].x === 11 && snakeArr[1].y === 12
 ) {
     if (levelSelect.value === 'level1') {
-        document.getElementById('highScore').innerHTML =  `HighScore:${hiScoreL1}`;
+        document.getElementById('highScore').innerHTML = `HighScore:${hiScoreL1}`;
     } else if (levelSelect.value === 'level2') {
-        document.getElementById('highScore').innerHTML =  `HighScore:${hiScoreL2}`;
+        document.getElementById('highScore').innerHTML = `HighScore:${hiScoreL2}`;
     }
     else if (levelSelect.value === 'level3') {
-        document.getElementById('highScore').innerHTML =  `HighScore:${hiScoreL3}`;
+        document.getElementById('highScore').innerHTML = `HighScore:${hiScoreL3}`;
     }
 
 }
@@ -295,7 +295,7 @@ function gameEngine() {
             localStorage.setItem('hiscoreL2', scoreL2)
             hiScoreL1 = scoreL2;
         }
-        document.getElementById('score').innerHTML =`Score:${scoreL2}`;
+        document.getElementById('score').innerHTML = `Score:${scoreL2}`;
     }
     else if (levelSelect.value === 'level3') {
         if (scoreL3 > hiScoreL3) {
@@ -318,7 +318,7 @@ function gameEngine() {
             scoreL1 += 1;
             document.getElementById('score').innerHTML = `Score:${scoreL1}`;
             if (scoreL1 > hiScoreL1) {
-                document.getElementById('highScore').innerHTML =`HighScore:${scoreL1}`;
+                document.getElementById('highScore').innerHTML = `HighScore:${scoreL1}`;
             }
 
         } else if (levelSelect.value === 'level2') {
@@ -337,7 +337,7 @@ function gameEngine() {
             }
 
         }
-        document.getElementById('score').innerHTML = levelSelect.value === 'level1' ? `Score:${scoreL1}` : levelSelect.value === 'level2' ? `Score:${scoreL2}` :  `Score:${scoreL3}`;
+        document.getElementById('score').innerHTML = levelSelect.value === 'level1' ? `Score:${scoreL1}` : levelSelect.value === 'level2' ? `Score:${scoreL2}` : `Score:${scoreL3}`;
         foodSound.play()
         snakeArr.unshift({ x: snakeArr[0].x + inputDirection.x, y: snakeArr[0].y + inputDirection.y })
         // generating food in random place
@@ -364,7 +364,7 @@ function gameEngine() {
         snakeArr.unshift({ x: snakeArr[0].x + inputDirection.x, y: snakeArr[0].y + inputDirection.y });
         bigFood = { x: null, y: null };
     }
-    document.getElementById('score').innerHTML = levelSelect.value === 'level1' ? `Score:${scoreL1}` : levelSelect.value === 'level2' ? `Score:${scoreL2}` :  `Score:${scoreL3}`;
+    document.getElementById('score').innerHTML = levelSelect.value === 'level1' ? `Score:${scoreL1}` : levelSelect.value === 'level2' ? `Score:${scoreL2}` : `Score:${scoreL3}`;
 
     //Generating New Big Food by checking the eaten food value
     if (eatenFood === 5) {
@@ -381,8 +381,8 @@ function gameEngine() {
         let b = 17;
         bigFood = { x: Math.round(a + (b - a) * Math.random()), y: Math.round(a + (b - a) * Math.random()) };
         setTimeout(() => {
-            
-        }, 3000);        
+
+        }, 3000);
 
         setTimeout(() => {
             bigFood = { x: null, y: null };
@@ -407,12 +407,23 @@ function gameEngine() {
         //Changing the snake color if the snake collides itself
         for (let i = 1; i < snakeArr.length; i++) {
             if (snakeArr[i].x === snakeArr[0].x && snakeArr[i].y === snakeArr[0].y) {
-                // hiss.play()
-                if (index === 0) {
-                    snakeElement.classList.add('foodySnakeFace')
-                } else {
-                    snakeElement.classList.add('foodySnakeBody')
+
+                if (scoreL1 > 1) {
+                    if (index === 0) {
+                        snakeElement.classList.add('foodySnakeFace')
+                    } else {
+                        snakeElement.classList.add('foodySnakeBody')
+                    }
+                    setTimeout(() => {
+                        snakeArr = [
+                            { x: 11, y: 11 },
+                            { x: 11, y: 12 }
+                        ]
+                        inputDirection = { x: 0, y: 0 }
+                        
+                    }, 100);
                 }
+
             }
         }
         if (index === 0) {
@@ -433,7 +444,7 @@ function gameEngine() {
             blockElement.style.gridColumnStart = item.x;
             blockElement.classList.add('L1blocks');
             board.appendChild(blockElement);
-  
+
 
         });
         // Function defined on the top
@@ -474,9 +485,7 @@ function gameEngine() {
         bigFoodElement.style.gridColumnStart = bigFood.x;
         bigFoodElement.classList.add('food2');
         board.appendChild(bigFoodElement);
-        setTimeout(() => {
-            bigFoodElement.classList.add('fade-out');
-        }, 3000);
+
     }
 
 
