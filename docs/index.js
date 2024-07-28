@@ -252,13 +252,16 @@ function gameEngine() {
     }
     //Handling pause and continue the Game
     pauseGame.addEventListener('click', () => {
+        backgroundMusic.pause()
         speed = 0;
     })
     continueGame.addEventListener('click', () => {
+        backgroundMusic.play()
         speed = range.value;
     })
     //New Game
     newGame.addEventListener('click', () => {
+        
         snakeArr = [
             { x: 11, y: 11 },
             { x: 11, y: 12 }
