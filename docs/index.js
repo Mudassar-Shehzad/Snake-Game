@@ -414,6 +414,7 @@ function gameEngine() {
                     } else {
                         snakeElement.classList.add('foodySnakeBody')
                     }
+                    scoreL1 = 0
                     setTimeout(() => {
                         snakeArr = [
                             { x: 11, y: 11 },
