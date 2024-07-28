@@ -213,12 +213,12 @@ levelSelect.addEventListener('click', () => {
     }, 1000);
     speed = range.value
     if (levelSelect.value === 'level1') {
-        document.getElementById('highScore').innerHTML = hiScoreL1;
+        document.getElementById('highScore').innerHTML = `HighScore:${hiScoreL1}`;
     } else if (levelSelect.value === 'level2') {
-        document.getElementById('highScore').innerHTML = hiScoreL2;
+        document.getElementById('highScore').innerHTML =  `HighScore:${hiScoreL2}`;
     }
     else if (levelSelect.value === 'level3') {
-        document.getElementById('highScore').innerHTML = hiScoreL3;
+        document.getElementById('highScore').innerHTML = `HighScore:${hiScoreL3}`;
     }
 })
 
@@ -229,12 +229,12 @@ if (
     snakeArr[1].x === 11 && snakeArr[1].y === 12
 ) {
     if (levelSelect.value === 'level1') {
-        document.getElementById('highScore').innerHTML = hiScoreL1;
+        document.getElementById('highScore').innerHTML =  `HighScore:${hiScoreL1}`;
     } else if (levelSelect.value === 'level2') {
-        document.getElementById('highScore').innerHTML = hiScoreL2;
+        document.getElementById('highScore').innerHTML =  `HighScore:${hiScoreL2}`;
     }
     else if (levelSelect.value === 'level3') {
-        document.getElementById('highScore').innerHTML = hiScoreL3;
+        document.getElementById('highScore').innerHTML =  `HighScore:${hiScoreL3}`;
     }
 
 }
@@ -288,26 +288,21 @@ function gameEngine() {
             localStorage.setItem('hiscoreL1', scoreL1)
             hiScoreL1 = scoreL1;
         }
-        document.getElementById('score').innerHTML = scoreL1;
-        // document.getElementById('highScore').innerHTML = scoreL1;
+        document.getElementById('score').innerHTML = `Score:${scoreL1}`;
 
     } else if (levelSelect.value === 'level2') {
         if (scoreL2 > hiScoreL2) {
             localStorage.setItem('hiscoreL2', scoreL2)
             hiScoreL1 = scoreL2;
         }
-        document.getElementById('score').innerHTML = scoreL2;
-        // document.getElementById('highScore').innerHTML = scoreL2;
+        document.getElementById('score').innerHTML =`Score:${scoreL2}`;
     }
     else if (levelSelect.value === 'level3') {
         if (scoreL3 > hiScoreL3) {
             localStorage.setItem('hiscoreL3', scoreL3)
             hiScoreL3 = scoreL3;
         }
-        document.getElementById('score').innerHTML = scoreL3;
-        // document.getElementById('highScore').innerHTML = scoreL3;
-
-
+        document.getElementById('score').innerHTML = `Score:${scoreL3}`;
     }
 
 
@@ -321,28 +316,28 @@ function gameEngine() {
     if (snakeArr[0].y === food.y && snakeArr[0].x === food.x) {
         if (levelSelect.value === 'level1') {
             scoreL1 += 1;
-            document.getElementById('score').innerHTML = scoreL1;
+            document.getElementById('score').innerHTML = `Score:${scoreL1}`;
             if (scoreL1 > hiScoreL1) {
-                document.getElementById('highScore').innerHTML = scoreL1;
+                document.getElementById('highScore').innerHTML =`HighScore:${scoreL1}`;
             }
 
         } else if (levelSelect.value === 'level2') {
             scoreL2 += 1;
-            document.getElementById('score').innerHTML = scoreL2;
+            document.getElementById('score').innerHTML = `Score:${scoreL2}`;
             if (scoreL2 > hiScoreL2) {
-                document.getElementById('highScore').innerHTML = scoreL2;
+                document.getElementById('highScore').innerHTML = `HighScore:${scoreL2}`;
             }
 
         }
         else if (levelSelect.value === 'level3') {
             scoreL3 += 1;
-            document.getElementById('score').innerHTML = scoreL3;
+            document.getElementById('score').innerHTML = `Score:${scoreL3}`;
             if (scoreL2 > hiScoreL2) {
-                document.getElementById('highScore').innerHTML = scoreL2;
+                document.getElementById('highScore').innerHTML = `Score:${scoreL3}`;;
             }
 
         }
-        document.getElementById('score').innerHTML = levelSelect.value === 'level1' ? scoreL1 : levelSelect.value === 'level2' ? scoreL2 : scoreL3;
+        document.getElementById('score').innerHTML = levelSelect.value === 'level1' ? `Score:${scoreL1}` : levelSelect.value === 'level2' ? `Score:${scoreL2}` :  `Score:${scoreL3}`;
         foodSound.play()
         snakeArr.unshift({ x: snakeArr[0].x + inputDirection.x, y: snakeArr[0].y + inputDirection.y })
         // generating food in random place
@@ -369,22 +364,26 @@ function gameEngine() {
         snakeArr.unshift({ x: snakeArr[0].x + inputDirection.x, y: snakeArr[0].y + inputDirection.y });
         bigFood = { x: null, y: null };
     }
-    document.getElementById('score').innerHTML = levelSelect.value === 'level1' ? scoreL1 : levelSelect.value === 'level2' ? scoreL2 : scoreL3;
+    document.getElementById('score').innerHTML = levelSelect.value === 'level1' ? `Score:${scoreL1}` : levelSelect.value === 'level2' ? `Score:${scoreL2}` :  `Score:${scoreL3}`;
 
     //Generating New Big Food by checking the eaten food value
     if (eatenFood === 5) {
         eatenFood = 0;
         if (levelSelect.value === 'level1') {
-            document.getElementById('score').innerHTML = scoreL1;
+            document.getElementById('score').innerHTML = `Score:${scoreL1}`;;
         } else if (levelSelect.value === 'level2') {
-            document.getElementById('score').innerHTML = scoreL2;
+            document.getElementById('score').innerHTML = `Score:${scoreL2}`;;
         }
         else if (levelSelect.value === 'level3') {
-            document.getElementById('score').innerHTML = scoreL3;
+            document.getElementById('score').innerHTML = `Score:${scoreL3}`;;
         }
         let a = 2;
         let b = 17;
         bigFood = { x: Math.round(a + (b - a) * Math.random()), y: Math.round(a + (b - a) * Math.random()) };
+        setTimeout(() => {
+            
+        }, 3000);        
+
         setTimeout(() => {
             bigFood = { x: null, y: null };
         }, 5000);
@@ -475,6 +474,9 @@ function gameEngine() {
         bigFoodElement.style.gridColumnStart = bigFood.x;
         bigFoodElement.classList.add('food2');
         board.appendChild(bigFoodElement);
+        setTimeout(() => {
+            bigFoodElement.classList.add('fade-out');
+        }, 3000);
     }
 
 
