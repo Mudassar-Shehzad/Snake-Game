@@ -195,7 +195,7 @@ function collisionL2(sarr) {
 }
 //Function Collision in level 3
 function collisionL3(sarr) {
-    if (sarr[0].y === 1 || sarr[0].y === 18 || sarr[0].x === 1 || sarr[0].x === 18) {
+    if (sarr[0].y === 2 || sarr[0].y === 17 || sarr[0].x === 2 || sarr[0].x === 17) {
         scoreL3 = 0;
         handleGameOver()
     }

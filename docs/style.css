@@ -30,7 +30,7 @@ body {
 #canvas {
   background: rgb(34, 34, 34);
   display: grid;
-  height: 80vmin;
+  height: 85vmin;
   width: 100vmin;
   grid-template-columns: repeat(18, 1fr);
   grid-template-rows: repeat(18, 1fr);
