@@ -195,7 +195,7 @@ function collisionL2(sarr) {
 }
 //Function Collision in level 3
 function collisionL3(sarr) {
-    if (sarr[0].y === 2 || sarr[0].y === 17 || sarr[0].x === 2 || sarr[0].x === 17) {
+    if (sarr[0].y === 2 || sarr[0].y === 18 || sarr[0].x === 1 || sarr[0].x === 18) {
         scoreL3 = 0;
         handleGameOver()
     }
@@ -335,8 +335,8 @@ function gameEngine() {
         else if (levelSelect.value === 'level3') {
             scoreL3 += 1;
             document.getElementById('score').innerHTML = `Score:${scoreL3}`;
-            if (scoreL2 > hiScoreL2) {
-                document.getElementById('highScore').innerHTML = `Score:${scoreL3}`;;
+            if (scoreL3 > hiScoreL3) {
+                document.getElementById('highScore').innerHTML = `HighScore:${scoreL3}`;;
             }
 
         }
