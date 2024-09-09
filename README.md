@@ -23,3 +23,15 @@ This is a classic Snake Game built using HTML, CSS, and JavaScript. The game fea
 - **Pause Button**: Pause the game.
 - **Continue Button**: Resume the game.
 - **New Game Button**: Start a new game.
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/Mudassar-Shehzad/Snake-Game.git
+1. **Navigate to the folder**:
+  ```bash
+    cd game
+```
+
+1. **Open live server.**
+
+
